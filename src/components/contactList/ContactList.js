@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
-export class ContactList extends Component {
-  state = {
-    contacts: [],
-    name: '',
-    number: '',
-  };
+const INITIAL_STATE = {
+        name: '',
+        number: '',
+    
+}
 
+export class ContactList extends Component {
+  state = ({...INITIAL_STATE})
+  
   hendleChangeInput = ({ target: { name, value } }) => {
     this.setState({
       [name]: value,
@@ -16,7 +18,11 @@ export class ContactList extends Component {
   hendleSubmitForm = e => {
     e.preventDefault();
     this.props.addContact({...this.state})
+    this.reset()
   };
+  reset(){
+    this.setState({...INITIAL_STATE})
+  }
 
   render() {
     const {name, number}  = this.state

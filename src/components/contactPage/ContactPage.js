@@ -9,7 +9,7 @@ export class ContactPage extends Component {
   render() {
     return (
         <>
-        <ContactList addContact={this.addContact} />;
+        <ContactList addContact={this.addContact} />
         </>
     )
   }
