@@ -1,57 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import css from './ContactList.module.css';
 
-const INITIAL_STATE = {
-        name: '',
-        number: '',
-    
-}
+export const ContactList = ({ list = [], remuve }) => {
+  const userContact = list.map(item => (
+    <li className={css.list_item} key={item.id}>
+      <p>Name: {item.name}</p>
+      <p>Number: {item.number}</p>
+      <button
+        onClick={() => remuve(item.id)}
+        type="button"
+        className={css.delButton}
+      >
+        delete
+      </button>
+    </li>
+  ));
+  return <ul className={css.list}>{userContact}</ul>;
+};
 
-export class ContactList extends Component {
-  state = ({...INITIAL_STATE})
-  
-  hendleChangeInput = ({ target: { name, value } }) => {
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  hendleSubmitForm = e => {
-    e.preventDefault();
-    this.props.addContact({...this.state})
-    this.reset()
-  };
-  reset(){
-    this.setState({...INITIAL_STATE})
-  }
-
-  render() {
-    const {name, number}  = this.state
-    return (
-      <>
-        <form onSubmit={this.hendleSubmitForm}>
-          <label htmlFor="name">Name: </label>
-          <input
-            onChange={this.hendleChangeInput}
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            value={name}
-            required
-          />
-          <label htmlFor="number">Tel: </label>
-          <input
-            onChange={this.hendleChangeInput}
-            type="tel"
-            name="number"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            value={number}
-            required
-          />
-          <button type='submit'>ADD</button>
-        </form>
-      </>
-    );
-  }
-}
+ContactList.prototype = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      number: PropTypes.string,
+    })
+  ),
+  remuve: PropTypes.func,
+};
