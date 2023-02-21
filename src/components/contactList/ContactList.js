@@ -5,8 +5,7 @@ import css from './ContactList.module.css';
 export const ContactList = ({ list = [], remuve }) => {
   const userContact = list.map(item => (
     <li className={css.list_item} key={item.id}>
-      <p>Name: {item.name}</p>
-      <p>Number: {item.number}</p>
+      <p>{item.name}: {item.number} </p>
       <button
         onClick={() => remuve(item.id)}
         type="button"

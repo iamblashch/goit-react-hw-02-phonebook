@@ -52,7 +52,7 @@ export class ContactForm extends Component {
             value={number}
             required
           />
-          <button className={css.button} type='submit'>add</button>
+          <button className={css.button} type='submit'>Add contact</button>
         </form>
       </>
     );
@@ -60,7 +60,8 @@ export class ContactForm extends Component {
 }
 
 ContactForm.propType = {
-  name: PropTypes.string,
-  number: PropTypes.string,
-  hendleSubmitForm: PropTypes.func,
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  hendleSubmitForm: PropTypes.func.isRequired,
+  hendleChangeInput:PropTypes.func.isRequired,
 };
