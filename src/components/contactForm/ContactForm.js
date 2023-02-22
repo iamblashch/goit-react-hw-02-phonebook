@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import css from'./ContactForm.module.css'
-import PropTypes from 'prop-types'
 
 const INITIAL_STATE = {
         name: '',
@@ -28,7 +27,6 @@ export class ContactForm extends Component {
   render() {
     const {name, number}  = this.state
     return (
-      <>
         <form onSubmit={this.hendleSubmitForm} className={css.formPhonebook}>
           <label className={css.label} htmlFor="name">Name: </label>
           <input 
@@ -54,14 +52,7 @@ export class ContactForm extends Component {
           />
           <button className={css.button} type='submit'>Add contact</button>
         </form>
-      </>
     );
   }
 }
 
-ContactForm.propType = {
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  hendleSubmitForm: PropTypes.func.isRequired,
-  hendleChangeInput:PropTypes.func.isRequired,
-};

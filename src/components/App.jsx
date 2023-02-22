@@ -19,7 +19,7 @@ export class App extends Component {
 
   addContact = data => {
     const dubleNumber = this.state.contact.find(
-      ({ name }) => name === data.name
+      ({ name }) => name === data.name.toLowerCase()
     );
     const newContact = { ...data, id: nanoid(10) };
     if (dubleNumber) {
@@ -59,17 +59,15 @@ export class App extends Component {
   };
 
   render() {
-    const ArrFindContact = this.filterSearh();
+    const arrFindContact = this.filterSearh();
     return (
       <section className={css.app}>
         <h1>Phonebook</h1>
         <ContactForm addContact={this.addContact} />
         <h2>Contacts</h2>
-        <ContactFilter onFilter={this.onFilter} />
+        <ContactFilter onFilter={this.onFilter} value={this.state.filter} />
         {this.state.contact.length !== 0 && (
-          <>
-            <ContactList list={ArrFindContact} remuve={this.deleteContact} />
-          </>
+          <ContactList list={arrFindContact} onRemove={this.deleteContact} />
         )}
       </section>
     );
